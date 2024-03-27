@@ -1,0 +1,35 @@
+apiVersion:  apps/v1
+kind:  Deployment
+metadata:
+    name:  flask-app-deployment
+    labels:
+        app: flask-app
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: flask-app
+    template:
+        metadata:
+            labels:
+                app: flask-app
+        spec:
+            containers:
+            - name: flask-app
+              image: 'harshdusanegl/flask-app:latest'
+              ports:
+              - containerPort: 8000
+---
+apiVersion:  v1
+kind:  Service
+metadata:
+    name:  flask-app-service
+spec:
+    selector:
+        app: flask-app
+    type: LoadBalancer
+    ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      nodePort: 30003
