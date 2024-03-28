@@ -12,7 +12,7 @@ spec:
     path: flask-app
   destination: 
     server: https://kubernetes.default.svc
-    namespace: flask-app
+    namespace: default
 
   syncPolicy:
     syncOptions:
